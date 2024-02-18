@@ -37,7 +37,17 @@
     }
     .card-container>img{
     margin: 1em 0em;
-    width: 8em;
+    width: 7.5em;
     object-fit: contain;
+    }
+    .card-title{
+        text-align: center;
+        font-weight: bold;
+        color: white;
+        font-size: 1.1em;
+    }
+    .card-author{
+        color: white;
+        font-size: .8em;
     }
 }
