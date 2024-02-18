@@ -31,7 +31,7 @@ const Home = () => {
     setItemData(data.items);
     console.log(data)
   };
-  arr = itemData.splice(0,5);
+  arr = itemData.splice(0,4);
   return (
     <div className="main">
       <div className="top-bar">

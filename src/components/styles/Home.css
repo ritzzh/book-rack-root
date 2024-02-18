@@ -18,7 +18,7 @@
 }
 .src-icon{
     width: 3.5vw;
-    margin: 1vh 0px;
+    margin: 2vh 0px;
 }
 
 .outer-container{
@@ -29,10 +29,26 @@
     height: 85vh;
     padding: 10px;
     display: grid;
-    grid-template-columns: repeat(5, 2fr);
+    grid-template-columns: repeat(4, 2fr);
     grid-template-rows: 2fr;
     row-gap: 12px;
     column-gap: 12px;
     justify-items: center;
     align-items: center;
+}
+
+
+@media (max-width:480px){
+    .outer-container{
+        background-image: url('../assets/background.jpg');
+        background-size: cover;
+        filter: grayscale(30%);
+        display: flex;
+        flex-wrap: wrap;
+        justify-items: center;
+        align-items: center;
+    }
+    .src-icon{
+        width: 4em;
+    }
 }
