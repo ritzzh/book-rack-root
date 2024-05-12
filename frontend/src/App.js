@@ -19,6 +19,7 @@ function App() {
     <Router>
       <Navbar></Navbar>
       <Routes>
+        <Route path="*" element={<Home/>}/>
         <Route exact path='/Home' element={<Home></Home>}>Home</Route>
         <Route 
         exact path='/ChatBox' 
@@ -35,8 +36,8 @@ function App() {
             element={<Chat username={username} room={room} socket={socket} />}
           />
           
-        <Route exact path='/Comments' element={<Comments/>}>Comments</Route>
-        <Route exact path='/Contact' element={<Contact/>}>Contact</Route>
+        <Route exact path='/Comments' element={<Comments socket={socket}/>}>Comments</Route>
+        <Route exact path='/Contact' element={<Contact socket={socket}/>}>Contact</Route>
       </Routes>
     </Router>
     </div>

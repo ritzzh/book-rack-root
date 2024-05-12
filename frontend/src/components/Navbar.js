@@ -10,7 +10,7 @@ const Navbar=()=> {
             </div>
             <div className="navbar-pages">
                   <Link to='/Home'>Home</Link>
-                  <Link to='/ChatBox'>ChatBox</Link>
+                  <Link to='/ChatBox'>ChatRoom</Link>
                   <Link to='/Comments'>Comments</Link>
                   <Link to='/Contact'>Contact</Link>
             </div>

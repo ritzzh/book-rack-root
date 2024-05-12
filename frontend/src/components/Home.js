@@ -28,7 +28,12 @@ const Home = () => {
   return (
     <div className="main">
       <div className="top-bar">
-        <input type="text" className="bookinput" placeholder="search"></input>
+        <input type="text" className="bookinput" placeholder="search" 
+        onKeyDown={(e)=>{
+          if(e.key==="Enter")
+            searchAPI();
+        }}
+        ></input>
         <div className="src-icon">
           <img
             className="inputsearch"

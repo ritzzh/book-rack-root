@@ -19,9 +19,13 @@ const SendMessage = ({ socket, username, room }) => {
         className="messageInput"
         placeholder='Message...'
         onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={(e)=>{
+          if(e.key==="Enter")
+            sendMessage();
+        }}
         value={message}
       />
-      <button className='btn btn-primary' onClick={sendMessage}>
+      <button onClick={sendMessage}>
         Send Message
       </button>
     </div>
