@@ -1,5 +1,5 @@
 import React from 'react'
-import './styles/ChatBox.css'
+import '../styles/ChatBox.css'
 import { useNavigate } from 'react-router-dom'
 
 

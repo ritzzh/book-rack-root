@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './styles/Chat.css'
+import '../styles/Chat.css'
 
 const SendMessage = ({ socket, username, room }) => {
   const [message, setMessage] = useState('');

@@ -1,26 +1,27 @@
 import Home from './components/Home';
 import Navbar from './components/Navbar';
-import Comments from './components/Comments';
-import ChatBox from './components/ChatBox';
-import Contact from './components/Contact';
-import Chat from './components/Chat';
+import ChatBox from './components/chat/ChatBox';
+import Chat from './components/chat/Chat';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 import io from 'socket.io-client';
 import { useState } from 'react';
+import BookSearch from './components/BookSearch';
+
 
 const socket = io.connect('http://localhost:4000');
 
 function App() {
   const [username,setUsername] = useState('');
+  const [logged,setLogin] = useState(false);
   const [room,setRoom] = useState("");
 
   return (
     <div>
     <Router>
-      <Navbar></Navbar>
+      <Navbar logged={logged} setLogin={setLogin}></Navbar>
       <Routes>
         <Route path="*" element={<Home/>}/>
-        <Route exact path='/Home' element={<Home></Home>}>Home</Route>
+        <Route exact path='/Search' element={<BookSearch/>}>Search</Route>
         <Route 
         exact path='/ChatBox' 
         element={
@@ -35,9 +36,6 @@ function App() {
             exact path='/chat'
             element={<Chat username={username} room={room} socket={socket} />}
           />
-          
-        <Route exact path='/Comments' element={<Comments socket={socket}/>}>Comments</Route>
-        <Route exact path='/Contact' element={<Contact socket={socket}/>}>Contact</Route>
       </Routes>
     </Router>
     </div>

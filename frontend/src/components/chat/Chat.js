@@ -1,8 +1,8 @@
 import React from 'react'
-import './styles/Chat.css'
-import MessagesReceived from './Messages';
-import SendMessage from './SendMessage';
-import RoomAndUsers from './room-and-users';
+import '../styles/Chat.css'
+import MessagesReceived from '../chat/Messages';
+import SendMessage from '../chat/SendMessage';
+import RoomAndUsers from '../chat/room-and-users';
 
 function Chat({username, room, socket}) {
   return (

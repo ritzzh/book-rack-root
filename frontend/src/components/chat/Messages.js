@@ -1,4 +1,4 @@
-import './styles/Chat.css'
+import '../styles/Chat.css'
 import React, { useRef,useEffect, useState } from 'react'
 
 const Messages=({socket}) =>{
