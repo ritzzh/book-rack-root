@@ -8,7 +8,7 @@ import { useState } from 'react';
 import BookSearch from './components/BookSearch';
 
 
-const socket = io.connect('http://localhost:4000');
+const socket = io.connect('https://book-rack-root-backend.onrender.com');
 
 function App() {
   const [username,setUsername] = useState('');
