@@ -9,7 +9,7 @@ const Message = require("./Message");
 const FormData = require("./FormData");
 const leaveRoom = require("./leave-room");
 
-mongoose.connect("mongodb+srv://ritesh:root@cluster0.tztqqkf.mongodb.net/", {
+mongoose.connect(MY_MONGO_URL, {
   useNewUrlParser: true,
 });
 
