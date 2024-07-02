@@ -8,8 +8,9 @@ const router = express.Router();
 const Message = require("./Message");
 const FormData = require("./FormData");
 const leaveRoom = require("./leave-room");
+require('dotenv').config({path: './.env'});
 
-mongoose.connect(MY_MONGO_URL, {
+mongoose.connect(process.env.MY_MONGO_URL, {
   useNewUrlParser: true,
 });
 
