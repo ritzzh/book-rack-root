@@ -32,8 +32,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://book-rack-root-frontend.onrender.com",
-    origin: "http://localhost:3000",
+    origin: ["https://book-rack-root-frontend.onrender.com","http://localhost:3000"],
     methods: ["GET", "POST"],
   },
 });
