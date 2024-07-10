@@ -57,7 +57,6 @@ io.on("connection", (socket) => {
 
     Message.find({ room: room })
     .then((foundItems) => {
-        console.log(JSON.stringify(foundItems));
         socket.emit('lastMessages', foundItems);
     })
     .catch((err) => {
