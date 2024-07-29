@@ -12,7 +12,7 @@ const userRoute = require('./routes/route');
 const router = express.Router();
 
 // for deployment
-const url = `http://book-rack-root-backend.onrender.com`;
+const url = `https://book-rack-root-backend.onrender.com`;
 const interval = 5*60* 1000;
 
 // Reloader Function

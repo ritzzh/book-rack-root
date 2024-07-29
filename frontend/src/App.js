@@ -13,8 +13,8 @@ import KeepAlive from './components/KeepAlive';
 
 
 // const socket = io.connect('http://localhost:4000');
-const socket = io.connect('http://book-rack-root-backend.onrender.com');
-const baseURL = 'http://book-rack-root-backend.onrender.com'
+const socket = io.connect('https://book-rack-root-backend.onrender.com');
+const baseURL = 'https://book-rack-root-backend.onrender.com'
 
 function App() {
   const {username, logged} = useSelector(state => state.user)
