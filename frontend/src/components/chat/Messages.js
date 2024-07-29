@@ -2,7 +2,10 @@ import '../styles/Chat.css'
 import React, { useRef, useEffect, useState } from 'react'
 
 const Messages = ({ socket }) => {
-  const [messagesRecieved, setMessagesReceived] = useState([])
+  const [messagesRecieved, setMessagesReceived] = useState(() => {
+    const savedMessages = localStorage.getItem('messages');
+    return savedMessages ? JSON.parse(savedMessages) : [];
+  });
 
   const messagesColumnRef = useRef(null);
 

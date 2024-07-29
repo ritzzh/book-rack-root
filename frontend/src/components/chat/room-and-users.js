@@ -23,6 +23,7 @@ const RoomAndUsers = ({ socket }) => {
   const leaveRoom = () => {
     socket.emit('leave_room', { username, room });
     dispatch(setRoom({ room: '' }));
+    localStorage.removeItem('messages')
     navigate('/ChatBox');
   };
 
