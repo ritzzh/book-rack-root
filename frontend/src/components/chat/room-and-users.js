@@ -1,26 +1,29 @@
 import '../styles/Chat.css';
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setRoom } from '../features/user/userSlice';
 
-const RoomAndUsers = ({ socket, username, room }) => {
+const RoomAndUsers = ({ socket }) => {
+  const { username, room } = useSelector((state) => state.user);
   const [roomUsers, setRoomUsers] = useState([]);
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     socket.on('chatroom_users', (data) => {
-      console.log(data);
       setRoomUsers(data);
     });
 
-    return () => socket.off('chatroom_users');
+    return () => {
+      socket.off('chatroom_users');
+    };
   }, [socket]);
 
   const leaveRoom = () => {
-    const __createdtime__ = Date.now();
-    socket.emit('leave_room', { username, room, __createdtime__ });
-    // Redirect to home page
-    navigate('/', { replace: true });
+    socket.emit('leave_room', { username, room });
+    dispatch(setRoom({ room: '' }));
+    navigate('/ChatBox');
   };
 
   return (
@@ -33,7 +36,7 @@ const RoomAndUsers = ({ socket, username, room }) => {
           {roomUsers.map((user) => (
             <li
               style={{
-                fontWeight: `${user.username === username ? 'bold' : 'normal'}`,
+                fontWeight: user.username === username ? 'bold' : 'normal',
               }}
               key={user.id}
             >
@@ -43,7 +46,7 @@ const RoomAndUsers = ({ socket, username, room }) => {
         </ul>
       </div>
 
-      <button className='btn btn-outline' onClick={leaveRoom}>
+      <button className="btn btn-outline" onClick={leaveRoom}>
         Leave
       </button>
     </div>

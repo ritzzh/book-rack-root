@@ -1,137 +1,153 @@
 const express = require("express");
-const app = express();
+const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
-const mongoose = require("mongoose");
-const router = express.Router();
-const Message = require("./Message");
-const FormData = require("./FormData");
+const axios = require('axios');
+require('dotenv').config({ path: './.env' });
+const Message = require("./models/Message");
 const leaveRoom = require("./leave-room");
-require('dotenv').config({path: './.env'});
+const userRoute = require('./routes/route');
+const router = express.Router();
+
+// for deployment
+const url = `http://book-rack-root-backend.onrender.com`;
+const interval = 5*60* 1000;
+
+// Reloader Function
+function reloadWebsite() {
+  axios.get(url)
+    .then(response => {
+      console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}`);
+    })
+    .catch(error => {
+      console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
+    });
+}
 
 mongoose.connect(process.env.MY_MONGO_URL, {
   useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => {
+    console.log('Database connected');
+  })
+  .catch((err) => {
+    console.error('Database connection error:', err);
+  });
+
+const app = express();
+app.get('/api/ping', (req, res) => {
+  res.status(200).send('Ping received');
+});
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(cors({
+  origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com"],
+  methods: ["GET", "POST"],
+}));
+
+// Add a route to handle the root path
+app.get('/', (req, res) => {
+  res.status(200).send('Server is running');
 });
 
-const conn = mongoose.connection;
-conn.on("connected", () => {
-  console.log("Database connected successfully");
-});
-conn.on("disconnected", () => {
-  console.log("Database disconnected successfully");
-});
-conn.on("error", console.error.bind(console, "Connection error:"));
-module.exports = conn;
+app.use('/api', userRoute);
+app.use('/', router);
 
-// Socket Handle
-app.use("/", router);
-
-app.use(cors());
 const server = http.createServer(app);
-
 const io = new Server(server, {
   cors: {
-    origin: ["https://book-rack-root-frontend.onrender.com","http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com"],
     methods: ["GET", "POST"],
   },
 });
 
 const CHAT_BOT = "ChatBot";
-let chatRoom = "";
 let allUsers = [];
 
 io.on("connection", (socket) => {
-  console.log(`user connected ${socket.id}`);
+  console.log(`User connected ${socket.id}`);
 
-  socket.on("join_room", (data) => {
+  socket.on("join_room", async (data) => {
     const { username, room } = data;
     socket.join(room);
 
-    chatRoom = room;
     allUsers.push({ id: socket.id, username, room });
-    chatRoomUsers = allUsers.filter((user) => user.room === room);
+    const chatRoomUsers = allUsers.filter((user) => user.room === room);
     socket.to(room).emit("chatroom_users", chatRoomUsers);
-    socket.emit("chatroom_ucd sers", chatRoomUsers);
+    socket.emit("chatroom_users", chatRoomUsers);
 
-    Message.find({ room: room })
-    .then((foundItems) => {
-        socket.emit('lastMessages', foundItems);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    try {
+      const foundItems = await Message.find({ room });
+      socket.emit('lastMessages', foundItems);
+    } catch (err) {
+      console.error(err);
+    }
 
-    let __createdtime__ = Date.now();
     socket.to(room).emit("receive_message", {
       message: `${username} has joined the chat`,
       username: CHAT_BOT,
-      __createdtime__,
     });
     socket.emit("receive_message", {
       message: `Welcome ${username}`,
       username: CHAT_BOT,
-      __createdtime__,
     });
   });
+
   socket.on("leave_room", (data) => {
     const { username, room } = data;
     socket.leave(room);
-    const __createdtime__ = Date.now();
-    // Remove user from memory
+
     allUsers = leaveRoom(socket.id, allUsers);
-    socket.to(room).emit("chatroom_users", allUsers);
+    const chatRoomUsers = allUsers.filter((user) => user.room === room);
+    socket.to(room).emit("chatroom_users", chatRoomUsers);
     socket.to(room).emit("receive_message", {
       username: CHAT_BOT,
       message: `${username} has left the chat`,
-      __createdtime__,
     });
     console.log(`${username} has left the chat`);
   });
-  socket.on("form_submit",(data)=>{
-    const sendAway = new FormData({
-      username: data.name,
-      message: data.message,
-      email:data.email,
-    });
-    sendAway.save().then(function (doc) {
-      console.log(doc._id.toString());
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  })
+
   socket.on("disconnect", () => {
     console.log("User disconnected from the chat");
-    const user = allUsers.find((user) => user.id == socket.id);
+    const user = allUsers.find((user) => user.id === socket.id);
     if (user?.username) {
       allUsers = leaveRoom(socket.id, allUsers);
-      socket.to(chatRoom).emit("chatroom_users", allUsers);
-      socket.to(chatRoom).emit("receive_message", {
+      const chatRoomUsers = allUsers.filter((user) => user.room === user.room);
+      socket.to(user.room).emit("chatroom_users", chatRoomUsers);
+      socket.to(user.room).emit("receive_message", {
         message: `${user.username} has disconnected from the chat.`,
+        username: CHAT_BOT,
       });
     }
   });
-  socket.on("send_message", (data) => {
-    const { message, username, room, __createdtime__ } = data;
-    io.in(room).emit("receive_message", data); // Send to all users in room, including sender
 
-    const sendAway = new Message({
-      username: username,
-      message: message,
-      room: room,
-      time:__createdtime__,
+  socket.on("send_message", (data) => {
+    const { message, username, room } = data;
+    console.log(data);
+    io.in(room).emit("receive_message", data);
+
+    const newMessage = new Message({
+      username,
+      message,
+      room,
     });
-    sendAway
-      .save()
-      .then(function (doc) {
+
+    newMessage.save()
+      .then(doc => {
         console.log(doc._id.toString());
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(error => {
+        console.error(error);
       });
   });
 });
 
+server.listen(4000, () => {
+  console.log("Server listening on port 4000");
 
-server.listen(4000, () => "server listening on port 4000");
+  // Start the reloader function only after the server has started
+  setInterval(reloadWebsite, interval);
+});

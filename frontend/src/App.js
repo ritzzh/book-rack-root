@@ -4,21 +4,27 @@ import ChatBox from './components/chat/ChatBox';
 import Chat from './components/chat/Chat';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 import io from 'socket.io-client';
-import { useState } from 'react';
 import BookSearch from './components/BookSearch';
+import Login from './components/profile/Login';
+import Profile from './components/profile/Profile';
+import SignUp from './components/profile/SignUp';
+import { useSelector } from 'react-redux';
+import KeepAlive from './components/KeepAlive';
 
 
-const socket = io.connect('https://book-rack-root-backend.onrender.com');
+// const socket = io.connect('http://localhost:4000');
+const socket = io.connect('http://book-rack-root-backend.onrender.com');
+const baseURL = 'http://book-rack-root-backend.onrender.com'
 
 function App() {
-  const [username,setUsername] = useState('');
-  const [logged,setLogin] = useState(false);
-  const [room,setRoom] = useState("");
+  const {username, logged} = useSelector(state => state.user)
+  const {room} = useSelector(state => state.user)
+  
 
   return (
     <div>
     <Router>
-      <Navbar logged={logged} setLogin={setLogin}></Navbar>
+      <Navbar logged={logged} ></Navbar>
       <Routes>
         <Route path="*" element={<Home/>}/>
         <Route exact path='/Search' element={<BookSearch/>}>Search</Route>
@@ -26,16 +32,26 @@ function App() {
         exact path='/ChatBox' 
         element={
         <ChatBox
-                username={username} 
-                setUsername={setUsername} 
                 room={room} 
-                setRoom={setRoom} 
                 socket={socket} 
         />}>ChatBox</Route>
         <Route
             exact path='/chat'
             element={<Chat username={username} room={room} socket={socket} />}
           />
+        <Route
+            exact path='/Login'
+            element={<Login baseURL={baseURL}/>}
+          />
+        <Route
+            exact path='/Profile'
+            element={<Profile baseURL={baseURL} />}
+          />
+        <Route
+            exact path='/SignUp'
+            element={<SignUp baseURL={baseURL}/>}
+          />
+        
       </Routes>
     </Router>
     </div>
