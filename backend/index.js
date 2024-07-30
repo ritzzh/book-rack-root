@@ -29,7 +29,7 @@ const io = new Server(server, {
 });
 // Reloader Function
 const url = `https://book-rack-root-backend.onrender.com`;
-const interval = 5*60* 1000;
+const interval = 60* 1000;
 
 function reloadWebsite() {
   axios.get(url)
