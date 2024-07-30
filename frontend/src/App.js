@@ -54,6 +54,7 @@ function App() {
         
       </Routes>
     </Router>
+    <KeepAlive></KeepAlive>
     </div>
   );
 }

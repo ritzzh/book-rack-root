@@ -38,7 +38,7 @@ mongoose.connect(process.env.MY_MONGO_URL, {
   });
 
 const app = express();
-app.get('/api/ping', (req, res) => {
+app.get('/ping', (req, res) => {
   res.status(200).send('Ping received');
 });
 app.use(express.json());
