@@ -1,5 +1,4 @@
-
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const KeepAlive = () => {
   useEffect(() => {
@@ -9,7 +8,7 @@ const KeepAlive = () => {
         .then(data => console.log('Keep-alive ping successful'))
         .catch(err => console.error('Keep-alive request failed:', err));
         console.log("Reload");
-    }, 5 * 60 * 1000); 
+    }, 30 * 1000); 
 
     return () => clearInterval(intervalId);
   }, []);

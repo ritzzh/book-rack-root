@@ -11,11 +11,26 @@ const leaveRoom = require("./leave-room");
 const userRoute = require('./routes/route');
 const router = express.Router();
 
-// for deployment
+// cors
+const app = express();
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(cors({
+  origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com"],
+  methods: ["GET", "POST"],
+}));
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com"],
+    methods: ["GET", "POST"],
+  },
+});
+// Reloader Function
 const url = `https://book-rack-root-backend.onrender.com`;
 const interval = 5*60* 1000;
 
-// Reloader Function
 function reloadWebsite() {
   axios.get(url)
     .then(response => {
@@ -26,6 +41,7 @@ function reloadWebsite() {
     });
 }
 
+//connecting Database
 mongoose.connect(process.env.MY_MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -37,18 +53,11 @@ mongoose.connect(process.env.MY_MONGO_URL, {
     console.error('Database connection error:', err);
   });
 
-const app = express();
+// functions
 app.get('/ping', (req, res) => {
   res.status(200).send('Ping received');
 });
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(cors({
-  origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com"],
-  methods: ["GET", "POST"],
-}));
 
-// Add a route to handle the root path
 app.get('/', (req, res) => {
   res.status(200).send('Server is running');
 });
@@ -56,13 +65,6 @@ app.get('/', (req, res) => {
 app.use('/api', userRoute);
 app.use('/', router);
 
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com"],
-    methods: ["GET", "POST"],
-  },
-});
 
 const CHAT_BOT = "ChatBot";
 let allUsers = [];
