@@ -1,3 +1,5 @@
+// index.js
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
@@ -6,9 +8,12 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const axios = require('axios');
 require('dotenv').config({ path: './.env' });
+
 const Message = require("./models/Message");
+const Blog = require("./models/Blog");
 const leaveRoom = require("./leave-room");
 const userRoute = require('./routes/route');
+const blogRoute = require('./routes/blogRoutes');
 const router = express.Router();
 
 // cors
@@ -17,7 +22,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({
   origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com"],
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST","PUT"],
 }));
 
 const server = http.createServer(app);
@@ -29,7 +34,7 @@ const io = new Server(server, {
 });
 // Reloader Function
 const url = `https://book-rack-root-backend.onrender.com`;
-const interval = 60* 1000;
+const interval = 60 * 1000;
 
 function reloadWebsite() {
   axios.get(url)
@@ -63,12 +68,13 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', userRoute);
+app.use('/api', blogRoute);
 app.use('/', router);
-
 
 const CHAT_BOT = "ChatBot";
 let allUsers = [];
 
+// Socket.io events and message handling
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
 

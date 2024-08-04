@@ -10,6 +10,7 @@ import Profile from './components/profile/Profile';
 import SignUp from './components/profile/SignUp';
 import { useSelector } from 'react-redux';
 import KeepAlive from './components/KeepAlive';
+import MakeBlog from './components/blog/MakeBlog';
 
 
 // const socket = io.connect('http://localhost:4000');
@@ -52,8 +53,8 @@ function App() {
             exact path='/SignUp'
             element={<SignUp baseURL={baseURL}/>}
           />
-        
-      </Routes>
+          {/* <Route exact path="/Blog" element={<MakeBlog baseURL={baseURL}></MakeBlog>} /> */}
+          </Routes>
     </Router>
     <KeepAlive></KeepAlive>
     </div>

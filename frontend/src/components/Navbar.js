@@ -22,6 +22,7 @@ const Navbar = ({ logged, setLogin }) => {
       <div className={`navbar-pages ${isOpen ? 'open' : ''}`}>
         {logged?<div className="navbar-logged">
           <Link to='/Search'>Search</Link>
+          {/* <Link to='/Blog'>Blog</Link> */}
           <Link to='/ChatBox'>ChatRoom</Link>
           <Link to='/Profile'>Profile</Link>
         </div>:
