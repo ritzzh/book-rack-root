@@ -1,6 +1,6 @@
 .login-container {
     max-width: 400px;
-    margin: auto;
+    margin: 10vh auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -31,33 +31,27 @@
 }
 
 .form-buttons {
+    margin: 20px auto;
     display: flex;
     justify-content: space-between;
 }
 
-.login-button, .signup-button {
+.act-button{
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.login-button {
-    background-color: #28a745;
-    color: #fff;
-}
 
-.signup-button {
+.act-button {
+    width: 45%;
     background-color: #007bff;
     color: #fff;
 }
 
-.login-button:hover {
+.act-button:hover {
     background-color: #218838;
-}
-
-.signup-button:hover {
-    background-color: #0056b3;
 }
 
 .error-pop{

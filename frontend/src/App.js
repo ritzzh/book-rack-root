@@ -2,15 +2,15 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import ChatBox from './components/chat/ChatBox';
 import Chat from './components/chat/Chat';
-import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
-import io from 'socket.io-client';
 import BookSearch from './components/BookSearch';
 import Login from './components/profile/Login';
 import Profile from './components/profile/Profile';
 import SignUp from './components/profile/SignUp';
-import { useSelector } from 'react-redux';
 import KeepAlive from './components/KeepAlive';
 import MakeBlog from './components/blog/MakeBlog';
+import io from 'socket.io-client';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 
 
 // const socket = io.connect('http://localhost:4000');

@@ -86,8 +86,8 @@ function Login({ baseURL }) {
             <div className="error-pop">{passError}</div>
           </div>
           <div className="form-buttons">
-            <button type="submit" className="login-button">Login</button>
-            <button type="button" className="signup-button" onClick={handleSignUp}>Sign Up</button>
+            <button type="submit" className="act-button">Login</button>
+            <button type="button" className="act-button" onClick={handleSignUp}>Sign Up</button>
           </div>
         </form>
       </div>
