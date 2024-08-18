@@ -13,10 +13,10 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 
 
-// const socket = io.connect('http://localhost:4000');
-// const baseURL = 'http://localhost:4000'
-const socket = io.connect('https://book-rack-root-backend.onrender.com');
-const baseURL = 'https://book-rack-root-backend.onrender.com'
+const socket = io.connect('http://localhost:4000');
+const baseURL = 'http://localhost:4000'
+// const socket = io.connect('https://book-rack-root-backend.onrender.com');
+// const baseURL = 'https://book-rack-root-backend.onrender.com'
 
 function App() {
   const {username, logged} = useSelector(state => state.user)
@@ -53,7 +53,7 @@ function App() {
             exact path='/SignUp'
             element={<SignUp baseURL={baseURL}/>}
           />
-          {/* <Route exact path="/Blog" element={<MakeBlog baseURL={baseURL}></MakeBlog>} /> */}
+          <Route exact path="/Blog" element={<MakeBlog baseURL={baseURL}></MakeBlog>} />
           </Routes>
     </Router>
     <KeepAlive></KeepAlive>

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import BlogCard from './BlogCard';
 import '../styles/MakeBlog.css';
 
 const MakeBlog = ({ baseURL }) => {
   const [posts, setPosts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [editingPost, setEditingPost] = useState(null);
@@ -20,16 +19,7 @@ const MakeBlog = ({ baseURL }) => {
       .catch(error => console.log(error));
   };
 
-  useEffect(() => {
-    if (searchQuery) {
-      fetch(`${baseURL}/api/search?query=${searchQuery}`)
-        .then(response => response.json())
-        .then(data => setPosts(data))
-        .catch(error => console.log(error));
-    } else {
-      fetchPosts();
-    }
-  }, [searchQuery]);
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -84,14 +74,6 @@ const MakeBlog = ({ baseURL }) => {
   return (
     <div className="make-blog-container">
       <h1>Blog Posts</h1>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search posts"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

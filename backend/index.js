@@ -24,7 +24,7 @@ app.use(cors({
   origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com",
     "https://bookfrontend-beige.vercel.app"
   ],
-  methods: ["GET", "POST","PUT"],
+  methods: ["GET", "POST","PUT","DELETE","PATCH"],
 }));
 
 const server = http.createServer(app);
@@ -33,7 +33,7 @@ const io = new Server(server, {
     origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com",
       "https://bookfrontend-beige.vercel.app"
     ],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST","PUT","DELETE","PATCH"],
   },
 });
 // Reloader Function
