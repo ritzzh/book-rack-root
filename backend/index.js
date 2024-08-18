@@ -21,14 +21,18 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({
-  origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com"],
+  origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com",
+    "https://bookfrontend-beige.vercel.app"
+  ],
   methods: ["GET", "POST","PUT"],
 }));
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com"],
+    origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com",
+      "https://bookfrontend-beige.vercel.app"
+    ],
     methods: ["GET", "POST"],
   },
 });
