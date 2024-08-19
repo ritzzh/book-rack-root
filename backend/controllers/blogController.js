@@ -11,8 +11,9 @@ const getAllBlogs = async (req, res) => {
 };
 
 const createBlog = async (req, res) => {
-  const { title, content } = req.body;
-  const newBlog = new Blog({ title, content });
+  const { title, content, username} = req.body;
+  console.log(username)
+  const newBlog = new Blog({ title, content, username});
   try {
     await newBlog.save();
     res.status(201).json(newBlog);
@@ -23,9 +24,9 @@ const createBlog = async (req, res) => {
 
 const updateBlog = async (req, res) => {
   const { id } = req.params;
-  const { title, content } = req.body;
+  const { title, content, username} = req.body;
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(id, { title, content }, { new: true });
+    const updatedBlog = await Blog.findByIdAndUpdate(id, { title, content, username}, { new: true });
     res.json(updatedBlog);
   } catch (error) {
     res.status(400).json({ message: error.message });

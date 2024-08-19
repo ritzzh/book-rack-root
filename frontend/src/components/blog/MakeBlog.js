@@ -1,26 +1,28 @@
 import React, {useEffect, useState } from 'react';
+import {useSelector } from 'react-redux';
+
 import BlogCard from './BlogCard';
 import '../styles/MakeBlog.css';
 
 const MakeBlog = ({ baseURL }) => {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState('');
+  const { username } = useSelector((state) => state.user);
   const [content, setContent] = useState('');
   const [editingPost, setEditingPost] = useState(null);
 
+  console.log(username)
   useEffect(() => {
     fetchPosts();
   }, []);
-
+  
   const fetchPosts = () => {
     fetch(`${baseURL}/api/posts`)
-      .then(response => response.json())
-      .then(data => setPosts(data))
-      .catch(error => console.log(error));
+    .then(response => response.json())
+    .then(data => setPosts(data))
+    .catch(error => console.log(error));
   };
-
   
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editingPost) {
@@ -29,7 +31,7 @@ const MakeBlog = ({ baseURL }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, content }),
+        body: JSON.stringify({ title, content, username }),
       })
         .then(response => response.json())
         .then(() => {
@@ -45,7 +47,7 @@ const MakeBlog = ({ baseURL }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, content }),
+        body: JSON.stringify({ title, content, username }),
       })
         .then(response => response.json())
         .then(() => {
