@@ -21,24 +21,20 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({
-  origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com",
-    "https://bookfrontend-beige.vercel.app"
-  ],
+  origin: "*",
   methods: ["GET", "POST","PUT","DELETE","PATCH"],
 }));
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://book-rack-root-frontend.onrender.com",
-      "https://bookfrontend-beige.vercel.app"
-    ],
+    origin: "*",
     methods: ["GET", "POST","PUT","DELETE","PATCH"],
   },
 });
 // Reloader Function
 const url = `https://book-rack-root-backend.onrender.com`;
-const interval = 60 * 1000;
+const interval = 5 * 60 * 1000;
 
 function reloadWebsite() {
   axios.get(url)

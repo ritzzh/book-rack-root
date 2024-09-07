@@ -6,17 +6,16 @@ import BookSearch from './components/BookSearch';
 import Login from './components/profile/Login';
 import Profile from './components/profile/Profile';
 import SignUp from './components/profile/SignUp';
-import KeepAlive from './components/KeepAlive';
 import MakeBlog from './components/blog/MakeBlog';
 import io from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 
 
-const socket = io.connect('http://localhost:4000');
-const baseURL = 'http://localhost:4000'
-// const socket = io.connect('https://book-rack-root-backend.onrender.com');
-// const baseURL = 'https://book-rack-root-backend.onrender.com'
+// const socket = io.connect('http://localhost:4000');
+// const baseURL = 'http://localhost:4000'
+const socket = io.connect('https://book-rack-root.onrender.com');
+const baseURL = 'https://book-rack-root.onrender.com'
 
 function App() {
   const {username, logged} = useSelector(state => state.user)
@@ -56,7 +55,6 @@ function App() {
           <Route exact path="/Blog" element={<MakeBlog baseURL={baseURL}></MakeBlog>} />
           </Routes>
     </Router>
-    <KeepAlive></KeepAlive>
     </div>
   );
 }
