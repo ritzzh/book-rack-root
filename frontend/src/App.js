@@ -2,7 +2,7 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import ChatBox from './components/chat/ChatBox';
 import Chat from './components/chat/Chat';
-import BookSearch from './components/BookSearch';
+import BookSearch from './components/books/BookSearch';
 import Login from './components/profile/Login';
 import Profile from './components/profile/Profile';
 import SignUp from './components/profile/SignUp';
@@ -10,12 +10,13 @@ import MakeBlog from './components/blog/MakeBlog';
 import io from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
+import './App.css'
 
 
-// const socket = io.connect('http://localhost:4000');
-// const baseURL = 'http://localhost:4000'
-const socket = io.connect('https://book-rack-root.onrender.com');
-const baseURL = 'https://book-rack-root.onrender.com'
+const socket = io.connect('http://localhost:4000');
+const baseURL = 'http://localhost:4000'
+// const socket = io.connect('https://book-rack-root.onrender.com');
+// const baseURL = 'https://book-rack-root.onrender.com'
 
 function App() {
   const {username, logged} = useSelector(state => state.user)

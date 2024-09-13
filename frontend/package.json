@@ -9,6 +9,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bulma": "^0.9.4",
+    "dotenv": "^16.4.5",
+    "dotnet": "^1.1.4",
     "express": "^4.18.2",
     "gh-pages": "^6.1.1",
     "mongodb": "^6.3.0",

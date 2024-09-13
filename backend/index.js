@@ -14,6 +14,7 @@ const Blog = require("./models/Blog");
 const leaveRoom = require("./leave-room");
 const userRoute = require('./routes/route');
 const blogRoute = require('./routes/blogRoutes');
+const bookRoutes = require('./routes/bookRoutes');
 const router = express.Router();
 
 // cors
@@ -33,7 +34,7 @@ const io = new Server(server, {
   },
 });
 // Reloader Function
-const url = `https://book-rack-root-backend.onrender.com`;
+const url = `https://book-rack-root.onrender.com`;
 const interval = 5 * 60 * 1000;
 
 function reloadWebsite() {
@@ -69,6 +70,7 @@ app.get('/', (req, res) => {
 
 app.use('/api', userRoute);
 app.use('/api', blogRoute);
+app.use('/api/books', bookRoutes);
 app.use('/', router);
 
 const CHAT_BOT = "ChatBot";
