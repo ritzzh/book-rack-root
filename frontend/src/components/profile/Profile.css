@@ -69,3 +69,22 @@
 .logout button:hover {
     background-color: #c9302c;
 }
+
+/* profile-books */
+
+.books-section{
+    display: flex;
+    flex-direction: column;
+}
+
+.read-books{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tbr-books{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

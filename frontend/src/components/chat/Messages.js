@@ -1,5 +1,6 @@
-import '../styles/Chat.css'
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import './Messages.css';
 
 const Messages = ({ socket }) => {
   const [messagesRecieved, setMessagesReceived] = useState(() => {
@@ -8,6 +9,7 @@ const Messages = ({ socket }) => {
   });
 
   const messagesColumnRef = useRef(null);
+  const { username } = useSelector(state => state.user);
 
   useEffect(() => {
     socket.on('lastMessages', (lastMessages) => {
@@ -44,17 +46,24 @@ const Messages = ({ socket }) => {
     <div>
       <div className="messagesColumn" ref={messagesColumnRef}>
         {messagesRecieved.map((msg, i) => (
-          <div className="message" key={i}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div
+            className={msg.username === username ? 'myMessage' : 'genMessage'}
+            key={i}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: msg.username === username ? 'flex-end' : 'flex-start',
+              }}
+            >
               <span className="msgMeta">{msg.username}</span>
             </div>
             <p className="msgText">{msg.message}</p>
-            <br />
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Messages;

@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({
   origin: "*",
-  methods: ["GET", "POST","PUT","DELETE","PATCH"],
+  methods: ["GET","POST","PUT","DELETE","PATCH"],
 }));
 
 const server = http.createServer(app);
@@ -68,9 +68,9 @@ app.get('/', (req, res) => {
   res.status(200).send('Server is running');
 });
 
-app.use('/api', userRoute);
-app.use('/api', blogRoute);
-app.use('/api/books', bookRoutes);
+app.use('/api/user', userRoute);
+app.use('/api/blog', blogRoute);
+app.use('/api/book', bookRoutes);
 app.use('/', router);
 
 const CHAT_BOT = "ChatBot";

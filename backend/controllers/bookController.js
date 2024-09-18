@@ -1,68 +1,72 @@
 const Book = require('../models/Book');
 const User = require('../models/User');
 
-// Controller to add a book for a user
-const addBook = async (req, res) => {
+const setBooks = async (req, res) => {
   const { username, book, action } = req.body;
 
+  if (!username || !book || !action) {
+    return res.status(400).json({ success: false, message: 'Missing required fields' });
+  }
+
   try {
     const user = await User.findOne({ username });
-    if (!user) return res.status(404).json({ message: 'User not found' });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    const existingBook = await Book.findOne({ title: book.title, user: user._id });
 
-    console.log(user)
-    const newBook = new Book({
-      title: book.title,
-      authors: book.authors,
-      thumbnail: book.imageLinks.thumbnail,
-      status: action,
-      user: user._id,
-    });
+    if (existingBook) {
+      existingBook.status = action;
+      await existingBook.save();
 
-    await newBook.save();
-    res.status(201).json({ message: 'Book added successfully', book: newBook });
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Book status updated successfully', 
+        book: existingBook 
+      });
+    } else {
+      // If the book does not exist, create a new book
+      const newBook = new Book({
+        title: book.title,
+        authors: book.authors,
+        thumbnail: book.imageLinks.thumbnail,
+        status: action,
+        user: user._id,
+      });
+
+      await newBook.save();
+      return res.status(201).json({ 
+        success: true, 
+        message: 'Book added successfully', 
+        book: newBook 
+      });
+    }
   } catch (error) {
-    res.status(500).json({ message: 'Error adding book', error: error.message });
+    res.status(500).json({ success: false, message: 'Error adding or updating book', error: error.message });
   }
 };
 
-// Controller to get all books for a user
 const getBooks = async (req, res) => {
-  const { username } = req.params;
+  console.log(req.body)
+  const { username } = req.body;
+  console.log(username)
+  if (!username) {
+    return res.status(400).json({ success: false, message: 'Missing required parameter: username' });
+  }
 
   try {
     const user = await User.findOne({ username });
-    if (!user) return res.status(404).json({ message: 'User not found' });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
 
-    // Find books by user ID
     const books = await Book.find({ user: user._id });
+    console.log(books)
 
-    res.status(200).json({ books });
+    res.status(200).json({ success: true, books });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching books', error: error.message });
+    res.status(500).json({ success: false, message: 'Error fetching books', error: error.message });
   }
 };
 
-// Controller to update the status of a book
-const updateBookStatus = async (req, res) => {
-  const { username, book, status } = req.body;
-
-  try {
-    const user = await User.findOne({ username });
-    if (!user) return res.status(404).json({ message: 'User not found' });
-
-    // Update the book's status
-    const updatedBook = await Book.findOneAndUpdate(
-      { _id: book._id, user: user._id },
-      { status },
-      { new: true }
-    );
-
-    if (!updatedBook) return res.status(404).json({ message: 'Book not found' });
-
-    res.status(200).json({ message: 'Book status updated successfully', book: updatedBook });
-  } catch (error) {
-    res.status(500).json({ message: 'Error updating book status', error: error.message });
-  }
-};
-
-module.exports = { addBook, getBooks, updateBookStatus };
+module.exports = { setBooks, getBooks };

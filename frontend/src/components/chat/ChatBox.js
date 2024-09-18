@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/ChatBox.css';
+import './ChatBox.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRoom } from '../features/user/userSlice';
@@ -25,13 +25,13 @@ function ChatBox({ socket }) {
   };
 
   return (
-    <div className="container">
-      <div className="formContainer">
+    <div className="chatbox-container">
+      <div className="chatbox-formContainer">
         <div className="chatbox-groupname">
           Book Discussion Room
         </div>
         <div className="chatbox-select room">
-          <select className='input'
+          <select className='chatbox-input'
             name="Select Discussion"
             onChange={(e) => setRoomState(e.target.value)}>
             <option>-- Select Discussion</option>
@@ -42,7 +42,7 @@ function ChatBox({ socket }) {
           </select>
         </div>
         <div className="chatbox-submit">
-          <button className='btn btn-secondary'
+          <button className='chatbox-btn chatbox-btn-secondary'
             onClick={joinRoom}>
             Join Room
           </button>

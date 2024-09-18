@@ -16,7 +16,7 @@ function Login({ baseURL }) {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    const response = await fetch(`${baseURL}/api/login`, {
+    const response = await fetch(`${baseURL}/api/user/login`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -33,7 +33,7 @@ function Login({ baseURL }) {
         institute: data.data.institute,
         name: data.data.name,
         logged: true,
-        baseURL
+        baseURL:baseURL
       }));
       navigate('/Profile');
     } else {
@@ -77,12 +77,12 @@ function Login({ baseURL }) {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            {/* <input
+            <input
               id="check"
               type="checkbox"
               value={pass}
               onChange={() => setPass((prev) => !prev)}
-            /> */}
+            />
             <div className="error-pop">{passError}</div>
           </div>
           <div className="form-buttons">

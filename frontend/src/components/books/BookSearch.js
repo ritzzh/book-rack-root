@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import Card from "./BookCards";
 import search_icon from "../assets/search.png";
-import "../styles/BookSearch.css";
+import "./BookSearch.css";
 
 const BookSearch = () => {
   const [itemData, setItemData] = useState([]);

@@ -4,17 +4,17 @@ import { login, logout } from "../features/user/userSlice";
 import { useEffect, useState } from "react";
 import "./Profile.css";
 import default_profile from "../assets/default_profile.png";
+import ReadBooks from "../books/ReadBooks";
+import ToBeReadBooks from "../books/ToBeReadBooks";
 
 const Profile = ({ baseURL, username }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { name, email, logged } = useSelector((state) => state.user);
-  const [booksRead, setBooksRead] = useState([]);
-  const [booksToRead, setBooksToRead] = useState([]);
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const response = await fetch(`${baseURL}/api/profile`, {
+      const response = await fetch(`${baseURL}/api/user/profile`, {
         method: "POST",
         mode: "cors",
         headers: {
@@ -33,8 +33,6 @@ const Profile = ({ baseURL, username }) => {
             room: "",
           })
         );
-        setBooksRead(data.data.booksRead);
-        setBooksToRead(data.data.booksToRead);
       }
     };
 
@@ -48,29 +46,10 @@ const Profile = ({ baseURL, username }) => {
     navigate("/");
   };
 
-  const handleBookStatusChange = (book, status) => {
-    // Update backend and change state
-    fetch(`${baseURL}/api/user/updateBookStatus`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, book, status }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (status === "read") {
-          setBooksRead([...booksRead, book]);
-          setBooksToRead(booksToRead.filter((b) => b.id !== book.id));
-        } else {
-          setBooksToRead([...booksToRead, book]);
-          setBooksRead(booksRead.filter((b) => b.id !== book.id));
-        }
-      })
-      .catch((error) => console.error(error));
-  };
 
   return (
+    <div className="profile-outer">
     <div className="profile">
-      <div className="pf-top">
         <div className="pf-header">
           <div className="pf-left">
             <img src={default_profile} alt="Profile" />
@@ -84,32 +63,14 @@ const Profile = ({ baseURL, username }) => {
         <div className="logout">
           <button onClick={handleLogout}>Logout</button>
         </div>
-      </div>
-      <div className="pf-bottom">
+    </div>
+      <div className="profile-books">
         <div className="books-section">
-          <h3>Read Books</h3>
-          <div className="book-list">
-            {booksRead.map((book) => (
-              <div key={book.id}>
-                <div className="book-card">{book.title}</div>
-                {/* Button to move from 'Read' to 'Want to Read' */}
-                <button onClick={() => handleBookStatusChange(book, "want_to_read")}>
-                  Move to Want to Read
-                </button>
-              </div>
-            ))}
+          <div className="read">
+            <ReadBooks></ReadBooks>
           </div>
-          <h3>Want to Read Books</h3>
-          <div className="book-list">
-            {booksToRead.map((book) => (
-              <div key={book.id}>
-                <div className="book-card">{book.title}</div>
-                {/* Button to move from 'Want to Read' to 'Read' */}
-                <button onClick={() => handleBookStatusChange(book, "read")}>
-                  Move to Read
-                </button>
-              </div>
-            ))}
+          <div className="tbr">
+            <ToBeReadBooks></ToBeReadBooks>
           </div>
         </div>
       </div>

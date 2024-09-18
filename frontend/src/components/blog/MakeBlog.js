@@ -17,7 +17,7 @@ const MakeBlog = ({ baseURL }) => {
   }, []);
   
   const fetchPosts = () => {
-    fetch(`${baseURL}/api/posts`)
+    fetch(`${baseURL}/api/blog/posts`)
     .then(response => response.json())
     .then(data => setPosts(data))
     .catch(error => console.log(error));
@@ -26,7 +26,7 @@ const MakeBlog = ({ baseURL }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editingPost) {
-      fetch(`${baseURL}/api/posts/${editingPost._id}`, {
+      fetch(`${baseURL}/api/blog/posts/${editingPost._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const MakeBlog = ({ baseURL }) => {
         })
         .catch(error => console.log(error));
     } else {
-      fetch(`${baseURL}/api/posts`, {
+      fetch(`${baseURL}/api/blog/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const MakeBlog = ({ baseURL }) => {
   };
 
   const deletePost = (id) => {
-    fetch(`${baseURL}/api/posts/${id}`, {
+    fetch(`${baseURL}/api/blog/posts/${id}`, {
       method: 'DELETE',
     })
       .then(() => fetchPosts())

@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/BlogCard.css";
+import "./BlogCard.css";
 import { useSelector } from "react-redux";
 
 const BlogCard = ({ post, onEdit, onDelete }) => {
@@ -11,7 +11,7 @@ const BlogCard = ({ post, onEdit, onDelete }) => {
         <div className="user">{post.username}</div>
       </div>
       <p>{post.content}</p>
-      {username == post.username ? (
+      {username === post.username ? (
         <div>
           <button onClick={() => onEdit(post)}>Edit</button>
           <button onClick={() => onDelete(post._id)}>Delete</button>

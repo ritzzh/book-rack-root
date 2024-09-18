@@ -5,7 +5,7 @@ function SearchBlog() {
 
   useEffect(() => {
     if (searchQuery) {
-      fetch(`${baseURL}/api/search?query=${searchQuery}`)
+      fetch(`${baseURL}/api/blog/search?query=${searchQuery}`)
         .then((response) => response.json())
         .then((data) => setPosts(data))
         .catch((error) => console.log(error));

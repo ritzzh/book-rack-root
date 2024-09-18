@@ -1,4 +1,29 @@
+
 .chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 10px;
+  background: #f0f2f5;
+  font-family: 'Poppins', sans-serif;
+}
+
+.messagesContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .chatContainer {
+    padding: 5px;
+  }
+}
+
+
+/* .chatContainer {
     padding: 10px;
     margin: 0 auto;
     display: grid;
@@ -7,7 +32,6 @@
     background-color: #dcccbd;
   }
   
-  /* Room and users component */
   .roomAndUsersColumn {
     border-right: 1px solid #dfdfdf;
     border-radius: 5px;
@@ -35,8 +59,7 @@
     border:10px solid;
     padding: 2px;
   }
-  
-  /* Messages */
+
   .messagesColumn {
     height: 80vh;
     width: 100vw;
@@ -58,8 +81,7 @@
   .msgText {
     color: black;
   }
-  
-  /* Message input and button */
+
   .sendMessageContainer {
     display: flex;
     flex-direction: row;
@@ -81,4 +103,4 @@
     cursor: pointer;
     border: none;
   }
-  
+   */

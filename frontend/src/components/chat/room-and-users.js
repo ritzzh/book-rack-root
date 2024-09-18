@@ -1,4 +1,4 @@
-import '../styles/Chat.css';
+import './RoomAndUsers.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -23,22 +23,19 @@ const RoomAndUsers = ({ socket }) => {
   const leaveRoom = () => {
     socket.emit('leave_room', { username, room });
     dispatch(setRoom({ room: '' }));
-    localStorage.removeItem('messages')
+    localStorage.removeItem('messages');
     navigate('/ChatBox');
   };
 
   return (
-    <div className="roomAndUsersColumn">
+    <div className="roomAndUsersContainer">
       <h2 className="roomTitle">{room}</h2>
-
       <div>
         {roomUsers.length > 0 && <h5 className="usersTitle">Users:</h5>}
         <ul className="usersList">
           {roomUsers.map((user) => (
             <li
-              style={{
-                fontWeight: user.username === username ? 'bold' : 'normal',
-              }}
+              className={`user ${user.username === username ? 'selfUser' : ''}`}
               key={user.id}
             >
               {user.username}
@@ -46,8 +43,7 @@ const RoomAndUsers = ({ socket }) => {
           ))}
         </ul>
       </div>
-
-      <button className="btn btn-outline" onClick={leaveRoom}>
+      <button className="btn leaveBtn" onClick={leaveRoom}>
         Leave
       </button>
     </div>
