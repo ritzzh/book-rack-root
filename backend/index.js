@@ -33,19 +33,6 @@ const io = new Server(server, {
     methods: ["GET", "POST","PUT","DELETE","PATCH"],
   },
 });
-// Reloader Function
-const url = `https://book-rack-root.onrender.com`;
-const interval = 5 * 60 * 1000;
-
-function reloadWebsite() {
-  axios.get(url)
-    .then(response => {
-      console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}`);
-    })
-    .catch(error => {
-      console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
-    });
-}
 
 //connecting Database
 mongoose.connect(process.env.MY_MONGO_URL, {
@@ -157,7 +144,4 @@ io.on("connection", (socket) => {
 
 server.listen(4000, () => {
   console.log("Server listening on port 4000");
-
-  // Start the reloader function only after the server has started
-  setInterval(reloadWebsite, interval);
 });

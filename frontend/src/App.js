@@ -15,8 +15,8 @@ import './App.css'
 
 // const socket = io.connect('http://localhost:4000');
 // const baseURL = 'http://localhost:4000'
-const socket = io.connect('https://book-rack-root.onrender.com');
-const baseURL = 'https://book-rack-root.onrender.com'
+const socket = io.connect('https://bookbackend-two.vercel.app');
+const baseURL = 'https://bookbackend-two.vercel.app'
 
 function App() {
   const {username, logged} = useSelector(state => state.user)
