@@ -1,94 +1,74 @@
 .card-container {
-    width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+  width: 200px; /* Default width for larger screens */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #fff; /* Light background for contrast */
+}
+
+.card-container:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.card-author {
+  font-size: 14px;
+  color: #666;
+}
+
+.card-actions button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.card-actions button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+  .card-container {
+      width: 40vw; /* Full width with padding on small screens */
+      height: auto; /* Allow height to adjust automatically */
+      border-radius: 16px; /* Slightly rounded corners for a softer look */
+      padding: 15px; /* Increased padding for touch targets */
   }
   
-  .card-container:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  .card-container > img {
+      margin: 1em 0em;
+      width: 60%; /* Adjust image width for better fit */
+      max-width: 150px; /* Limit max width */
+      object-fit: contain;
   }
-  
+
   .card-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: #333; /* Darker text for better contrast */
+      font-size: 1.2em; /* Slightly larger font size */
   }
-  
+
   .card-author {
-    font-size: 14px;
-    color: #666;
+      color: #666;
+      font-size: 0.9em; /* Slightly larger for better readability */
   }
-  
+
   .card-actions button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    margin: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+      padding: 10px; /* Larger touch area */
+      font-size: 1em; /* Make buttons more readable */
   }
-  
-  .card-actions button:hover {
-    background-color: #0056b3;
-  }
-  
-
-/* 
-.card-container{
-    background-color: rgb(0, 0, 0);
-    border: 2px solid;
-    border-radius: 25px;
-    width: 270px;
-    height: 350px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-}
-.card-container>img{
-    margin-top: 12px;
-    width: 150px;
-    object-fit: contain;
-}
-.card-title{
-    text-align: center;
-    font-weight: bold;
-    color: white;
-}
-.card-author{
-    color: white;
-} */
-
-
-@media (max-width:480px){
-    .card-container{
-    background-color: rgb(0, 0, 0);
-    border: 2px solid;
-    border-radius: 25px;
-    width: 45vw;
-    height: 40vh;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    }
-    .card-container>img{
-    margin: 1em 0em;
-    width: 7.5em;
-    object-fit: contain;
-    }
-    .card-title{
-        text-align: center;
-        font-weight: bold;
-        color: white;
-        font-size: 1em;
-    }
-    .card-author{
-        color: white;
-        font-size: .8em;
-    }
 }

@@ -30,17 +30,17 @@ function App() {
       <Navbar logged={logged} ></Navbar>
       <Routes>
         <Route path="*" element={<Home/>}/>
-        <Route exact path='/Search' element={<BookSearch/>}>Search</Route>
+        <Route exact path='/Search' element={logged&&<BookSearch/>}>Search</Route>
         <Route 
         exact path='/ChatBox' 
         element={
-        <ChatBox
+        logged&&<ChatBox
                 room={room} 
                 socket={socket} 
         />}>ChatBox</Route>
         <Route
             exact path='/chat'
-            element={<Chat username={username} room={room} socket={socket} />}
+            element={logged&&<Chat username={username} room={room} socket={socket} />}
           />
         <Route
             exact path='/Login'
@@ -48,13 +48,13 @@ function App() {
           />
         <Route
             exact path='/Profile'
-            element={<Profile baseURL={baseURL} />}
+            element={logged&&<Profile baseURL={baseURL} />}
           />
         <Route
             exact path='/SignUp'
             element={<SignUp baseURL={baseURL}/>}
           />
-          <Route exact path="/Blog" element={<MakeBlog baseURL={baseURL}></MakeBlog>} />
+          <Route exact path="/Blog" element={logged&&<MakeBlog baseURL={baseURL}></MakeBlog>} />
           </Routes>
     </Router>
     </div>

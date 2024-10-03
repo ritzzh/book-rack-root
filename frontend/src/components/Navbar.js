@@ -14,20 +14,22 @@ const Navbar = ({ logged, setLogin }) => {
       <div className="navbar-logo">
         <h3>Ink Stain.</h3>
       </div>
-      <div className="navbar-hamburger" onClick={toggleMenu}>
-        <div className={isOpen ? 'bar open' : 'bar'}></div>
-        <div className={isOpen ? 'bar open' : 'bar'}></div>
-        <div className={isOpen ? 'bar open' : 'bar'}></div>
+      <div className={`hamburger-lines ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
+        <span className='line line1'></span>
+        <span className='line line2'></span>
+        <span className='line line3'></span>
       </div>
-      <div className={`navbar-pages ${isOpen ? 'open' : ''}`}>
-        {logged?<div className="navbar-logged">
-          <Link to='/Search'>Search</Link>
-          <Link to='/Blog'>Blog</Link>
-          <Link to='/ChatBox'>ChatRoom</Link>
-          <Link to='/Profile'>Profile</Link>
-        </div>:
+      <div className={`navbar-pages ${isOpen ? 'navbar-open' : ''}`}>
+        {logged ? (
+          <div className="navbar-logged">
+            <Link onClick={()=>{setIsOpen(false)}} to='/Search'>Search</Link>
+            <Link onClick={()=>{setIsOpen(false)}} to='/Blog'>Blog</Link>
+            <Link onClick={()=>{setIsOpen(false)}} to='/ChatBox'>ChatRoom</Link>
+            <Link onClick={()=>{setIsOpen(false)}} to='/Profile'>Profile</Link>
+          </div>
+        ) : (
           <Link to='/Login'>Login</Link>
-        }
+        )}
       </div>
     </div>
   );

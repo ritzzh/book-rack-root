@@ -5,11 +5,15 @@
     filter: grayscale(30%);
     display: flex;
     flex-direction: column;
+    object-fit:contain;
+    height: 100%;
 }
 .top-bar{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-content: center;
+    align-items: center;
     height: 12vh;
     width: 100vw;
 }
@@ -32,12 +36,22 @@
     grid-template-rows: 2fr;
     row-gap: 12px;
     column-gap: 12px;
-    justify-items: center;
+    justify-content: center;
     align-items: center;
 }
 
 
-@media (max-width:480px){
+@media (max-width:768px){
+    .main{
+        background-image: none;
+        background-color: rgb(185, 218, 230);
+    }
+    .bookinput{
+        margin: 3vh .5vw;
+        width: 60vw;
+        height: 6vh;
+        border-radius: 25px;
+    }
     .outer-container{
         display: flex;
         flex-wrap: wrap;
@@ -45,6 +59,6 @@
         align-items: center;
     }
     .src-icon{
-        width: 4em;
+        width: 2.8em;
     }
 }

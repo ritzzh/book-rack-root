@@ -30,7 +30,7 @@ const RoomAndUsers = ({ socket }) => {
   return (
     <div className="roomAndUsersContainer">
       <h2 className="roomTitle">{room}</h2>
-      <div>
+      <div className='userList-display'>
         {roomUsers.length > 0 && <h5 className="usersTitle">Users:</h5>}
         <ul className="usersList">
           {roomUsers.map((user) => (

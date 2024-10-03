@@ -53,7 +53,6 @@ const ReadBooks = () => {
 
   return (
     <div>
-      <h2>Read Books</h2>
       {readBooks.length === 0 ? (
         <p>No books marked as "Read" yet.</p>
       ) : (

@@ -67,9 +67,11 @@ const Profile = ({ baseURL, username }) => {
       <div className="profile-books">
         <div className="books-section">
           <div className="read">
+            <h2>Read Books</h2>
             <ReadBooks></ReadBooks>
           </div>
           <div className="tbr">
+          <h2>To be Read </h2>
             <ToBeReadBooks></ToBeReadBooks>
           </div>
         </div>

@@ -48,10 +48,9 @@ const ToBeReadBooks = () => {
 
   return (
     <div>
-      <h2>To Be Read Books</h2>
       <div className="tbr-books">
         {wantToReadBooks.length === 0 ? (
-          <p>No books in 'To Be Read' list.</p>
+          <p st>No books in 'To Be Read' list.</p>
         ) : (
           wantToReadBooks.map((book) => (
             <BookCards key={book._id} bookData={book}>
