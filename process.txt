@@ -1,0 +1,7 @@
+
+[9 April, 2025] --- --- --- --- --- --- --- --- ---
+ 
+* npm create vite@latest inkstain -- --template react-ts
+* npm install
+* npm install react-router-dom
+
